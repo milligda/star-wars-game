@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Star Wars RPG Beginning</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+    
+    <div class="game-container">
+
+        <div class="character-header">
+            <h2 class="character-names">Choose Your Character:</h2>
+            <h2 class="opponent-names"></h2>
+        </div>
+
+        <div class="character-row">
+
+            <div id="your-side" class="dark-side"></div>
+
+            <div id="your-opponents" class="rebels"></div>
+
+
+        </div>
+
+        <div class="battle-container">
+
+            <h1 id="battle-message">Destroy the Rebel Scum!</h1>
+
+            <div class="battle">
+                <img class="fight-image" src="assets/images/luke.png" alt="fight image">
+                <p class="fight-name">Luke Skywalker</p>
+                <p class="fight-strength">Strength: </p>
+                <p class="fight-message">You struck Darth Vader for 24 damage. Darth Vader struck you back for 25 damage. </p>
+
+                <button class="strike-button empire-button">Strike!</button>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+    
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
+    
+</body>
+</html>

@@ -91,7 +91,7 @@ button.clickable {
 .battle-container {
     position: relative;
     padding-top: 0px;
-    margin: 200px auto 0px auto;
+    margin: 180px auto 0px auto;
     text-align: center;
 }
 
@@ -101,20 +101,31 @@ button.clickable {
     margin-top: 10px;
 }
 
-.strike-button {
-    display: inherit;
+.strike-button, .choice-button, .reset-button {
+    display: none;
+    min-width: 150px;
+    border-radius: 25px;
     margin: 10px auto;
     border: none;
     padding: 5px 20px;
     font-size: 20px;
-}
-
-.empire-strike {
-    background-color: #FB0102;
     color: #000000;
 }
 
-.empire-strike:hover, .empire-strike:focus {
+.empire-button {
+    background-color: #FB0102;
+}
+
+.rebel-button {
+    background-color: #7CED60;
+}
+
+.empire-button:hover, .empire-button:focus {
     background-color: rgb(201, 10, 10);
+    outline: none;
+}
+
+.rebel-button:hover, .rebel-button:focus {
+    background-color: rgb(56, 163, 29);
     outline: none;
 }
