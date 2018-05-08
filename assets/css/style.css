@@ -1,0 +1,120 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    color: #d2d2d2;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: #222222; 
+    background-image: url("../images/background.jpg");
+    background-position: center, center;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+h2 {
+    margin: 0;
+    margin-bottom: 5px;
+    padding: 0;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.game-container {
+    padding: 30px 20px 0px 20px;
+    position: relative;
+}
+
+.link-pointer {
+    cursor: pointer;
+}
+
+.character-names {
+    display: inline-block;
+}
+
+.opponent-names {
+    float: right;
+}
+
+.character-row {
+    display: block;
+}
+
+#your-side {
+    float: left;
+}
+
+#your-opponents {
+    float: right;
+}
+
+.character-tile {
+    width: 150px;
+    display: inline-block;
+    background: #d2d2d2;
+    color: #333333;
+    text-align: center;
+    padding: 0px 0px 5px 0px;
+    margin: 0px 5px;
+}
+
+button.clickable {
+    cursor: pointer;
+}
+
+.character-image {
+    max-width: 100%;
+}
+
+.character-name, .fight-name {
+    font-weight: bold;
+}
+
+.dark-side .character-tile {
+    border: 1px solid #FB0102;
+}
+
+.rebels .character-tile {
+    border: 1px solid #7CED60;
+}
+
+.character-tile:hover {
+    border-width: 2px;
+}
+
+.battle-container {
+    position: relative;
+    padding-top: 0px;
+    margin: 200px auto 0px auto;
+    text-align: center;
+}
+
+.fight-image {
+    max-width: 300px;
+    border: 2px solid #FEE720;
+    margin-top: 10px;
+}
+
+.strike-button {
+    display: inherit;
+    margin: 10px auto;
+    border: none;
+    padding: 5px 20px;
+    font-size: 20px;
+}
+
+.empire-strike {
+    background-color: #FB0102;
+    color: #000000;
+}
+
+.empire-strike:hover, .empire-strike:focus {
+    background-color: rgb(201, 10, 10);
+    outline: none;
+}
