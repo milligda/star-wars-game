@@ -146,7 +146,7 @@ $(document).ready(function() {
             // hides the tile from being displayed in the opponents div
             $(this).css("display", "none");
 
-            // empties the recovery div
+            // empties the recovery div so that the Train & Recover button is not displayed
             $(".recovery").empty();
 
             // disables the remaining opponent tiles so that they cannot be clicked during the battle
@@ -225,34 +225,35 @@ $(document).ready(function() {
             characterAttack = characterAttack * 2;
         }
 
+        // if either the user or opponent has died, hide the Strike button
+        if (opponentStrength <= 0 || characterStrength <= 0) {
+            $(".strike-button").toggle();
+        }
+
         // after each strike look to see if the opponent was defeated, if the user died or if they both died
 
-        // opponent was defeated and character is still alive.  Increase number of fights won, update the message, empty the battle div and hide the strike-button
+        // opponent was defeated and character is still alive.  Increase number of fights won, update the message, empty the battle div, and display the recovery button
         if (opponentStrength <= 0 && characterStrength >= 0) {
             fightsWon++;
             $("#battle-message").text(`You defeated ${opponentName}. Choose another opponent.`);
             $(".battle").empty();
-            $(".strike-button").toggle();
             $(".computer-team").prop('disabled', false);
             if(!recoverUsed) {
                 recover();
             }
         }
 
-        // user was killed.  Update the message, empty the battle div, hide the strike-button, display the reset-button
+        // user was killed.  Update the message and empty the battle div
         if (characterStrength <= 0 && opponentStrength >= 0) {
             $("#battle-message").text(`You were no match for ${opponentName}. Try again?`);
             $(".battle").empty();
-            $(".strike-button").toggle();
-            $(".reset-button").toggle();
         }
 
         // both user and opponent were killed.  Update the message, empty the battle div, hide the strike-button, display the reset-button
         if (characterStrength <= 0 && opponentStrength <= 0) {
             $("#battle-message").text(`You and ${opponentName} killed each other in glorious battle. Try again?`);
             $(".battle").empty();
-            $(".strike-button").toggle();
-            $(".reset-button").toggle();
+            $(".recovery").empty();
         }
 
         // if the user wins all 3 fights, display the you won message, empty the battle div and display the reset-button
@@ -263,6 +264,11 @@ $(document).ready(function() {
                 $("#battle-message").text(`You have protected your empire from the rebel scum! But there will always be a sequel...`);
             }
             $(".battle").empty();
+            $(".recovery").empty();
+        }
+
+        // if the user has died or won all 3 fights, display the reset button
+        if (characterStrength <= 0 || fightsWon === 3) {
             $(".reset-button").toggle();
         }
     }    
@@ -321,6 +327,7 @@ $(document).ready(function() {
         opponentStrength = opponentCharacter.strength;
     }
 
+    // creates the Train & Recover button which can be run once and restores some strength and increases attack
     function recover() {
 
         if (!recoverUsed) {
@@ -333,6 +340,7 @@ $(document).ready(function() {
 
         }
 
+        // if they click the button, change recoverUsed to true, increase the attack and strength, display the message, hide the button
         $(".recover-button").on("click", function() {
 
             recoverUsed = true;
