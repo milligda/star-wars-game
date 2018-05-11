@@ -36,7 +36,7 @@ var rey = {
     name: "Rey",
     attack: 10,
     counterAttack: 20,
-    strength: 175,
+    strength: 180,
     side: "rebels",
     playAs: false,
     image: "assets/images/rey.png",
