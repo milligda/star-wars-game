@@ -18,6 +18,10 @@ $(document).ready(function() {
     var characterTile;
     var strikeMessage = "";
     var fightsWon = 0;
+    var maxAttack = 200;
+    var recoverStrength = 10;
+    var trainAttack = 5;
+    var recoverUsed = false;
 
     // displays the sides before the game begins.  The user can select which side to play as.  
     function displaySides() {
@@ -142,6 +146,9 @@ $(document).ready(function() {
             // hides the tile from being displayed in the opponents div
             $(this).css("display", "none");
 
+            // empties the recovery div
+            $(".recovery").empty();
+
             // disables the remaining opponent tiles so that they cannot be clicked during the battle
             $(".computer-team").prop('disabled', true);
 
@@ -211,8 +218,12 @@ $(document).ready(function() {
         // display the fight message stating the damage to the character and opponent
         $(".fight-message").text(`You struck ${opponentName} for ${characterAttack} damage. ${opponentName} struck you back for ${opponentCounterAttack} damage.`);
         
-        // increase the characterAttack value for the next strike
-        characterAttack = characterAttack * 2;
+        // increase the characterAttack value for the next strike with a max attack value of 200
+        if (characterAttack * 2 > maxAttack) {
+            characterAttack = maxAttack;
+        } else {
+            characterAttack = characterAttack * 2;
+        }
 
         // after each strike look to see if the opponent was defeated, if the user died or if they both died
 
@@ -223,6 +234,9 @@ $(document).ready(function() {
             $(".battle").empty();
             $(".strike-button").toggle();
             $(".computer-team").prop('disabled', false);
+            if(!recoverUsed) {
+                recover();
+            }
         }
 
         // user was killed.  Update the message, empty the battle div, hide the strike-button, display the reset-button
@@ -256,34 +270,37 @@ $(document).ready(function() {
     // function to create character tiles
     function createTile(side, characterSlug) {
 
+        // converts the character slug to the character object
         var characterObj = eval(`${characterSlug}`);
 
+        // creates the button element for the tile
         characterTile = $("<button>");
         characterTile.addClass("character-tile");
         characterTile.attr("character-value", characterObj.slug);
         characterTile.appendTo(side);
         
+        // adds the character image to the button
         var characterImage = $("<img>");
         characterImage.addClass("character-image");
         characterImage.attr('src', characterObj.image);
         characterImage.appendTo(characterTile);
 
+        // creates the <p> element for the character name
         var characterName = $("<p>");
         characterName.addClass("character-name");
         characterName.text(characterObj.name);
         characterName.appendTo(characterTile);
 
+        // creates the <p> element for the character strength
         var characterStrength = $("<p>");
         characterStrength.addClass("character-strength");
         characterStrength.text(characterObj.strength);
         characterStrength.appendTo(characterTile);
 
+        // adds a special class for the user selected character tile to manipulate the strength level
         if (characterObj.playAs) {
             characterStrength.addClass("your-strength");
         }
-
-        console.log(empireCharacters);
-        console.log(rebelCharacters);
     }
 
     // sets the variable values based on the character the user selected
@@ -302,6 +319,31 @@ $(document).ready(function() {
         opponentAttack = opponentCharacter.attack;
         opponentCounterAttack = opponentCharacter.counterAttack;
         opponentStrength = opponentCharacter.strength;
+    }
+
+    function recover() {
+
+        if (!recoverUsed) {
+
+            // create a <button> element for the recovery
+            var recoveryButton = $("<button>");
+            recoveryButton.addClass("recover-button");
+            recoveryButton.text("Train & Recover");
+            recoveryButton.appendTo(".recovery");
+
+        }
+
+        $(".recover-button").on("click", function() {
+
+            recoverUsed = true;
+            characterAttack = characterAttack + trainAttack;
+            characterStrength = characterStrength + recoverStrength;
+            $("#battle-message").text(`Your attack increased ${trainAttack} and your strength gained ${recoverStrength}. 
+            Choose your next opponent.`);
+            $(".your-strength").text(characterStrength);
+            $(".recovery").empty();
+
+        });
     }
 
     function reset() {
